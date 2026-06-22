@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oishii Sushi & Lounge - Premium Interaktiv Sushi Tajribasi</title>
+    <!-- Tailwind CSS for modern responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for beautiful iconography -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        sushi: {
+                            black: '#0A0A09',
+                            dark: '#141412',
+                            gray: '#22221F',
+                            red: '#E63946',
+                            rose: '#FF4D6D',
+                            green: '#4AD66D',
+                            wasabi: '#AACC00',
+                            gold: '#D4AF37',
+                            light: '#F5F5F0'
+                        }
+                    },
+                    animation: {
+                        'spin-slow': 'spin 25s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-15px) rotate(3deg)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 0.6, filter: 'drop-shadow(0 0 5px rgba(230,57,70,0.5))' },
+                            '50%': { opacity: 1, filter: 'drop-shadow(0 0 15px rgba(230,57,70,0.9))' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar to match the premium theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A09;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #22221F;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E63946;
+        }
+        
+        /* Blur-backdrop enhancements */
+        .glassmorphism {
+            background: rgba(20, 20, 18, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Custom clip paths for unique Japanese aesthetics */
+        .clip-japanese {
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+        }
+        .clip-flag {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 50% 100%, 0% 90%);
+        }
+    </style>
+</head>
+<body class="bg-sushi-black text-sushi-light/90 font-sans overflow-x-hidden">
+
+<!-- Floating Toast Notification -->
+<div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 glassmorphism px-6 py-4 rounded-xl flex items-center space-x-3 shadow-2xl border-l-4 border-sushi-red">
+    <span class="text-sushi-red text-xl"><i class="fa-solid fa-circle-check"></i></span>
+    <p id="toast-message" class="text-sm font-semibold text-white"></p>
+</div>
+
+<!-- Navigation Header -->
+<header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 glassmorphism" id="main-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="#" class="flex items-center space-x-3 group">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-sushi-red to-sushi-rose flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-sushi-red/30 transform group-hover:rotate-180 transition-all duration-700">
+                お
+            </div>
+            <div>
+                <span class="font-serif text-2xl font-bold tracking-wider text-white">YaponaMama</span>
+                <span class="text-xs block text-sushi-red tracking-widest font-mono font-bold">SUSHI & LOUNGE</span>
+            </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+            <a href="#hero" class="hover:text-sushi-red transition-colors duration-200">Asosiy</a>
+            <a href="#builder" class="hover:text-sushi-red transition-colors duration-200 flex items-center gap-1.5 text-sushi-gold">
+                <span class="w-2 h-2 rounded-full bg-sushi-gold animate-ping"></span> DIY Sushi
+            </a>
+            <a href="#menu" class="hover:text-sushi-red transition-colors duration-200">Menyu</a>
+            <a href="#about" class="hover:text-sushi-red transition-colors duration-200">Biz Haqimizda</a>
+            <a href="#booking" class="hover:text-sushi-red transition-colors duration-200">Stol Band Qilish</a>
+        </nav>
+
+        <!-- Dynamic Action Elements (Cart Button, Book CTA, Mobile Menu Toggle) -->
+        <div class="flex items-center space-x-4">
+            <!-- Interactive Cart Trigger -->
+            <button onclick="toggleCart()" class="relative p-2.5 rounded-full bg-sushi-gray hover:bg-sushi-red/20 border border-white/10 text-white transition-all duration-300 group" aria-label="Savat">
+                <i class="fa-solid fa-shopping-basket text-lg group-hover:scale-110 transition-transform"></i>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-sushi-red text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-sushi-black shadow-lg">0</span>
+            </button>
+
+            <!-- Table Booking CTA -->
+            <a href="#booking" class="hidden lg:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-gradient-to-r from-sushi-red to-sushi-rose hover:from-sushi-rose hover:to-sushi-red text-white font-semibold text-sm transition-all duration-300 shadow-md shadow-sushi-red/20 transform hover:-translate-y-0.5">
+                Stol Band Qilish
+            </a>
+
+            <!-- Mobile Hamburger Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-white hover:text-sushi-red transition-colors" aria-label="Menyu">
+                <i class="fa-solid fa-bars text-2xl" id="menu-icon"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Navigation Sidebar Overlay -->
+<div id="mobile-menu" class="fixed inset-0 z-30 bg-sushi-black/95 backdrop-blur-lg transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 md:hidden">
+    <a href="#hero" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-sushi-red transition-colors">Asosiy</a>
+    <a href="#builder" onclick="toggleMobileMenu()" class="text-2xl font-bold text-sushi-gold hover:text-sushi-red transition-colors flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-sushi-gold animate-ping"></span> DIY Sushi
+    </a>
+    <a href="#menu" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-sushi-red transition-colors">Menyu</a>
+    <a href="#about" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-sushi-red transition-colors">Biz Haqimizda</a>
+    <a href="#booking" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-sushi-red transition-colors">Stol Band Qilish</a>
+    <a href="#booking" onclick="toggleMobileMenu()" class="px-8 py-3 rounded-full bg-gradient-to-r from-sushi-red to-sushi-rose text-white font-semibold shadow-lg">Band Qilish</a>
+</div>
+
+<!-- Hero Section -->
+<section id="hero" class="relative min-h-screen pt-24 pb-12 flex items-center justify-center overflow-hidden">
+    <!-- Traditional Japanese Geometric Background Lines -->
+    <div class="absolute inset-0 opacity-5 pointer-events-none select-none">
+        <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+            <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/>
+                </pattern>
+                <pattern id="circles" width="60" height="60" patternUnits="userSpaceOnUse">
+                    <circle cx="30" cy="30" r="28" fill="none" stroke="white" stroke-width="1"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+            <rect width="100%" height="100%" fill="url(#circles)" class="opacity-50" />
+        </svg>
+    </div>
+
+    <!-- Red Sun Glow Accent Behind Platter -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] lg:w-[650px] h-[350px] sm:h-[500px] lg:h-[650px] bg-gradient-to-br from-sushi-red/20 to-transparent rounded-full filter blur-[100px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+        <!-- Text Column -->
+        <div class="lg:col-span-6 text-center lg:text-left space-y-6">
+            <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-sushi-red/10 border border-sushi-red/30 text-sushi-red text-xs font-extrabold uppercase tracking-widest animate-pulse">
+                <i class="fa-solid fa-fire-flame-curved"></i>
+                <span>Toshkentdagi Eng Premium Sushi Joyi</span>
+            </div>
+            <h1 class="font-serif text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight text-white">
+                San'at <br class="hidden sm:inline">
+                Darajasidagi <br class="hidden sm:inline">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-sushi-rose via-sushi-red to-sushi-gold italic">Premium Sushi</span>
+            </h1>
+            <p class="text-base sm:text-lg text-sushi-light/70 max-w-lg mx-auto lg:mx-0">
+                Oishii — har bir burdada haqiqiy yapon an'analari, yangi tutilgan okean mahsulotlari va siz kutgan betakror zamonaviy ta'm uyg'unligidir.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                <a href="#menu" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-sushi-red to-sushi-rose hover:from-sushi-rose hover:to-sushi-red text-white font-bold text-center tracking-wide transition-all duration-300 shadow-xl shadow-sushi-red/25 transform hover:-translate-y-1">
+                    Menyuni Ko'rish
+                </a>
+                <a href="#builder" class="w-full sm:w-auto px-8 py-4 rounded-full bg-sushi-gray hover:bg-sushi-gray/75 text-sushi-gold border border-sushi-gold/30 hover:border-sushi-gold font-bold text-center tracking-wide transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> DIY Sushi Builder
+                </a>
+            </div>
+            
+            <!-- Quick Features -->
+            <div class="grid grid-cols-3 gap-4 pt-8 border-t border-white/5 max-w-md mx-auto lg:mx-0">
+                <div class="text-center lg:text-left">
+                    <p class="text-2xl sm:text-3xl font-serif font-bold text-white">100%</p>
+                    <p class="text-xs text-sushi-light/50">Yangi Baliqlar</p>
+                </div>
+                <div class="text-center lg:text-left border-x border-white/10 px-2">
+                    <p class="text-2xl sm:text-3xl font-serif font-bold text-white">24+</p>
+                    <p class="text-xs text-sushi-light/50">O'zgacha Rollar</p>
+                </div>
+                <div class="text-center lg:text-left">
+                    <p class="text-2xl sm:text-3xl font-serif font-bold text-white">15daq</p>
+                    <p class="text-xs text-sushi-light/50">Tez Tayyorlash</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Column (Floating Platter with Mouse Parallax Effect) -->
+        <div class="lg:col-span-6 flex justify-center items-center relative h-[350px] sm:h-[450px] lg:h-[550px]">
+            <!-- Decorative Back Circles -->
+            <div class="absolute w-72 sm:w-96 h-72 sm:h-96 rounded-full border border-dashed border-white/10 animate-spin-slow"></div>
+            
+            <!-- Floating Main Plate -->
+            <div id="parallax-plate" class="relative z-10 w-64 sm:w-96 h-64 sm:h-96 transition-transform duration-200 ease-out select-none">
+                <!-- SVG Vector of Delicious Japanese Sushi Platter -->
+                <svg viewBox="0 0 500 500" class="w-full h-full drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+                    <!-- Premium black/gold lacquer tray -->
+                    <ellipse cx="250" cy="250" rx="210" ry="210" fill="#1C1C1A" stroke="#D4AF37" stroke-width="4" />
+                    <ellipse cx="250" cy="250" rx="200" ry="200" fill="#141412" />
+                    <!-- Inner red accent circle -->
+                    <ellipse cx="250" cy="250" rx="195" ry="195" fill="none" stroke="#E63946" stroke-width="1.5" stroke-dasharray="8 4" />
+                    
+                    <!-- Traditional leaves wrapper -->
+                    <path d="M 120,320 C 180,380 280,380 340,320 C 310,290 290,280 250,290 C 200,280 150,290 120,320 Z" fill="#2D5A27" />
+                    <path d="M 150,150 C 220,100 320,100 380,160 C 350,190 320,180 250,190 C 210,180 170,190 150,150 Z" fill="#244A1E" opacity="0.8"/>
+                    
+                    <!-- Sushi Roll Philadelphia 1 (Top Left) -->
+                    <g transform="translate(180, 200)">
+                        <rect x="-35" y="-35" width="70" height="70" rx="12" fill="#FFA384" stroke="#FFF" stroke-width="1.5" /> <!-- Salmon wrapper -->
+                        <rect x="-23" y="-23" width="46" height="46" rx="8" fill="#FFF" /> <!-- White Rice -->
+                        <rect x="-14" y="-14" width="28" height="28" rx="5" fill="#122A1A" /> <!-- Nori Seaweed -->
+                        <circle cx="-3" cy="-3" r="8" fill="#FFFDF0" /> <!-- Cream Cheese -->
+                        <circle cx="5" cy="5" r="5" fill="#4AD66D" /> <!-- Avocado -->
+                        <circle cx="-3" cy="5" r="3" fill="#FF8C00" /> <!-- Tobiko -->
+                    </g>
+                    
+                    <!-- Sushi Roll Philadelphia 2 (Bottom Right) -->
+                    <g transform="translate(320, 300)">
+                        <rect x="-35" y="-35" width="70" height="70" rx="12" fill="#FFA384" stroke="#FFF" stroke-width="1.5" /> 
+                        <rect x="-23" y="-23" width="46" height="46" rx="8" fill="#FFF" /> 
+                        <rect x="-14" y="-14" width="28" height="28" rx="5" fill="#122A1A" /> 
+                        <circle cx="-3" cy="-3" r="8" fill="#FFFDF0" /> 
+                        <circle cx="5" cy="5" r="5" fill="#4AD66D" /> 
+                        <circle cx="-3" cy="5" r="3" fill="#FF8C00" /> 
+                    </g>
+
+                    <!-- Maki Roll 1 -->
+                    <g transform="translate(290, 160)">
+                        <circle cx="0" cy="0" r="28" fill="#122A1A" />
+                        <circle cx="0" cy="0" r="22" fill="#FFF" />
+                        <polygon points="0,-12 10,6 -10,6" fill="#FF4D6D" /> <!-- Tuna Center -->
+                    </g>
+                    
+                    <!-- Maki Roll 2 -->
+                    <g transform="translate(210, 340)">
+                        <circle cx="0" cy="0" r="28" fill="#122A1A" />
+                        <circle cx="0" cy="0" r="22" fill="#FFF" />
+                        <rect x="-8" y="-8" width="16" height="16" rx="3" fill="#4AD66D" /> <!-- Cucumber Center -->
+                    </g>
+
+                    <!-- Premium Salmon Nigiri (Center Left) -->
+                    <g transform="translate(140, 270) rotate(-25)">
+                        <rect x="-45" y="-22" width="90" height="44" rx="18" fill="#FFF" /> <!-- Rice bed -->
+                        <path d="M -50,-24 C -10,-28 10,-24 50,-24 C 55,-10 55,10 50,24 C 10,24 -10,28 -50,24 Z" fill="#FF7F50" /> <!-- Salmon slab -->
+                        <!-- Salmon white veins fat stripes -->
+                        <path d="M -40,-20 Q -20,0 -40,20 M -20,-20 Q 0,0 -20,20 M 0,-20 Q 20,0 0,20 M 20,-20 Q 40,0 20,20" stroke="#FFE4E1" stroke-width="2.5" fill="none" opacity="0.8"/>
+                        <rect x="-4" y="-25" width="8" height="50" fill="#122A1A" opacity="0.8" /> <!-- Nori ribbon -->
+                    </g>
+
+                    <!-- Ebi (Shrimp) Nigiri (Center Right) -->
+                    <g transform="translate(360, 210) rotate(35)">
+                        <rect x="-45" y="-22" width="90" height="44" rx="18" fill="#FFF" />
+                        <!-- Shrimp body with tail split -->
+                        <path d="M -50,-20 C -10,-24 20,-20 40,-12 L 55,-22 L 50,-5 L 55,12 L 40,12 C 20,20 -10,24 -50,20 Z" fill="#FF6B6B" />
+                        <path d="M -35,-15 C -5,-18 15,-15 30,-8 L 45,-12 M -35,15 C -5,18 15,15 30,8 L 45,12" stroke="#FFF" stroke-width="2" fill="none" />
+                        <rect x="-4" y="-23" width="8" height="46" fill="#122A1A" opacity="0.8" />
+                    </g>
+                    
+                    <!-- Ginger rosette (Gari) -->
+                    <g transform="translate(250, 250)">
+                        <circle cx="0" cy="0" r="18" fill="#E63946" opacity="0.3"/>
+                        <path d="M -15,-5 C -25,10 -5,25 0,10 C 5,25 25,10 15,-5 C 5,-20 -5,-20 -15,-5 Z" fill="#FFB7B2" />
+                        <path d="M -10,-10 C -15,0 -5,15 0,5 C 5,15 15,0 10,-10 C 5,-15 -5,-15 -10,-10 Z" fill="#FFA0A0" />
+                    </g>
+                    
+                    <!-- Wasabi Dollop -->
+                    <g transform="translate(250, 110)">
+                        <path d="M -15,10 Q -25,20 0,20 Q 25,20 15,10 Q 18,-10 0,-15 Q -18,-10 -15,10 Z" fill="#8DE969" />
+                        <path d="M -10,5 Q -15,12 0,12 Q 15,12 10,5 Q 10,-5 0,-8 Q -10,-5 -10,5 Z" fill="#A7F3D0" opacity="0.6" />
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- Floating Elements around Plate -->
+            <div class="absolute top-10 left-12 text-3xl animate-float" style="animation-delay: 1s;">🌸</div>
+            <div class="absolute bottom-16 right-16 text-4xl animate-float" style="animation-delay: 3s;">🥢</div>
+            <div class="absolute top-24 right-12 text-2xl animate-float" style="animation-delay: 4.5s;">🍋</div>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive DIY Sushi Builder -->
+<section id="builder" class="py-24 bg-sushi-dark relative border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header Text -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <span class="text-sushi-gold text-xs font-bold tracking-widest uppercase font-mono block">// O'zgacha Tajriba</span>
+            <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">DIY Sushi: Shaxsiy Ta'mingizni Yarating</h2>
+            <p class="text-sushi-light/65 text-sm sm:text-base">
+                An'anaviy qoidalarni chetga surib, o'zingiz yoqtirgan ingredientlardan iborat original rollingizni yarating. Biz uni yuqori mahorat bilan tayyorlaymiz!
+            </p>
+        </div>
+
+        <!-- Builder Grid System -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- Left Side Controls Panel (Col 7) -->
+            <div class="lg:col-span-7 space-y-8 glassmorphism p-6 sm:p-8 rounded-2xl relative">
+                
+                <!-- Step 1: Wrap Choice -->
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs text-sushi-gold font-bold font-mono uppercase tracking-wider">01-Qadam</span>
+                        <span id="selected-wrap-badge" class="text-xs bg-sushi-red/20 text-sushi-red px-2.5 py-1 rounded-full font-semibold">Nori (Dengiz o'ti)</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-4">G'ilofni Tanlang (Wrap)</h3>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button onclick="updateBuilder('wrap', 'nori')" id="btn-wrap-nori" class="builder-opt-btn ring-2 ring-sushi-red bg-sushi-black border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-2xl mb-1.5">🔲</span>
+                            <span class="text-xs font-bold text-white">Nori (Dengiz o'ti)</span>
+                            <span class="text-[10px] text-sushi-light/50 mt-1">Standart</span>
+                        </button>
+                        <button onclick="updateBuilder('wrap', 'soy')" id="btn-wrap-soy" class="builder-opt-btn bg-sushi-black hover:bg-white/5 border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-2xl mb-1.5">🟡</span>
+                            <span class="text-xs font-bold text-white">Soya Qog'ozi</span>
+                            <span class="text-[10px] text-sushi-gold mt-1">+3,000 UZS</span>
+                        </button>
+                        <button onclick="updateBuilder('wrap', 'cucumber')" id="btn-wrap-cucumber" class="builder-opt-btn bg-sushi-black hover:bg-white/5 border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-2xl mb-1.5">🥒</span>
+                            <span class="text-xs font-bold text-white">Bodring Wrap</span>
+                            <span class="text-[10px] text-sushi-gold mt-1">+5,000 UZS</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Rice Choice -->
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs text-sushi-gold font-bold font-mono uppercase tracking-wider">02-Qadam</span>
+                        <span id="selected-rice-badge" class="text-xs bg-sushi-red/20 text-sushi-red px-2.5 py-1 rounded-full font-semibold">Oq Sholi</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-4">Guruch Turini Tanlang</h3>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button onclick="updateBuilder('rice', 'white')" id="btn-rice-white" class="builder-opt-btn ring-2 ring-sushi-red bg-sushi-black border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-2xl mb-1.5">🍚</span>
+                            <span class="text-xs font-bold text-white">Klassik Oq Sholi</span>
+                            <span class="text-[10px] text-sushi-light/50 mt-1">Standart</span>
+                        </button>
+                        <button onclick="updateBuilder('rice', 'black')" id="btn-rice-black" class="builder-opt-btn bg-sushi-black hover:bg-white/5 border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-2xl mb-1.5">🍙</span>
+                            <span class="text-xs font-bold text-white">Yovvoyi Qora Guruch</span>
+                            <span class="text-[10px] text-sushi-gold mt-1">+4,000 UZS</span>
+                        </button>
+                        <button onclick="updateBuilder('rice', 'quinoa')" id="btn-rice-quinoa" class="builder-opt-btn bg-sushi-black hover:bg-white/5 border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-2xl mb-1.5">🌾</span>
+                            <span class="text-xs font-bold text-white">Kinoa & Guruch</span>
+                            <span class="text-[10px] text-sushi-gold mt-1">+6,000 UZS</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Fillings (Multiple choices) -->
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs text-sushi-gold font-bold font-mono uppercase tracking-wider">03-Qadam</span>
+                        <span class="text-xs bg-sushi-light/10 text-sushi-light/75 px-2.5 py-1 rounded-full">Istalgancha tanlang</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-4 font-serif">Asosiy Nachinkalar (Protein & Sabzavotlar)</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <!-- Salmon -->
+                        <button onclick="toggleFilling('salmon', 15000)" id="btn-filling-salmon" class="filling-opt-btn bg-sushi-black border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-xl mb-1">🐟</span>
+                            <span class="text-xs font-bold text-white">Siyom Baliq</span>
+                            <span class="text-[10px] text-sushi-gold mt-0.5">+15,000 UZS</span>
+                        </button>
+                        <!-- Tuna -->
+                        <button onclick="toggleFilling('tuna', 18000)" id="btn-filling-tuna" class="filling-opt-btn bg-sushi-black border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-xl mb-1">🥩</span>
+                            <span class="text-xs font-bold text-white">Tunyets</span>
+                            <span class="text-[10px] text-sushi-gold mt-0.5">+18,000 UZS</span>
+                        </button>
+                        <!-- Crab -->
+                        <button onclick="toggleFilling('crab', 12000)" id="btn-filling-crab" class="filling-opt-btn bg-sushi-black border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-xl mb-1">🦀</span>
+                            <span class="text-xs font-bold text-white">Qisqichbaqa</span>
+                            <span class="text-[10px] text-sushi-gold mt-0.5">+12,000 UZS</span>
+                        </button>
+                        <!-- Cream cheese -->
+                        <button onclick="toggleFilling('cheese', 8000)" id="btn-filling-cheese" class="filling-opt-btn bg-sushi-black border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-xl mb-1">🧀</span>
+                            <span class="text-xs font-bold text-white">Kremli Pishloq</span>
+                            <span class="text-[10px] text-sushi-gold mt-0.5">+8,000 UZS</span>
+                        </button>
+                        <!-- Avocado -->
+                        <button onclick="toggleFilling('avocado', 9000)" id="btn-filling-avocado" class="filling-opt-btn bg-sushi-black border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-xl mb-1">🥑</span>
+                            <span class="text-xs font-bold text-white font-serif">Avokado</span>
+                            <span class="text-[10px] text-sushi-gold mt-0.5">+9,000 UZS</span>
+                        </button>
+                        <!-- Cucumber -->
+                        <button onclick="toggleFilling('cucumber_f', 5000)" id="btn-filling-cucumber_f" class="filling-opt-btn bg-sushi-black border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-xl mb-1">🥒</span>
+                            <span class="text-xs font-bold text-white">Yangi Bodring</span>
+                            <span class="text-[10px] text-sushi-gold mt-0.5">+5,000 UZS</span>
+                        </button>
+                        <!-- Mango -->
+                        <button onclick="toggleFilling('mango', 7000)" id="btn-filling-mango" class="filling-opt-btn bg-sushi-black border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-xl mb-1">🥭</span>
+                            <span class="text-xs font-bold text-white">Mango Eksotik</span>
+                            <span class="text-[10px] text-sushi-gold mt-0.5">+7,000 UZS</span>
+                        </button>
+                        <!-- Tobiko -->
+                        <button onclick="toggleFilling('tobiko', 11000)" id="btn-filling-tobiko" class="filling-opt-btn bg-sushi-black border border-white/10 p-3 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-xl mb-1">🟠</span>
+                            <span class="text-xs font-bold text-white">Uvildiriq (Tobiko)</span>
+                            <span class="text-[10px] text-sushi-gold mt-0.5">+11,000 UZS</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Sauce / Toppings -->
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs text-sushi-gold font-bold font-mono uppercase tracking-wider">04-Qadam</span>
+                        <span id="selected-sauce-badge" class="text-xs bg-sushi-red/20 text-sushi-red px-2.5 py-1 rounded-full font-semibold">Hech qanday</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-4">Sous va Toping</h3>
+                    <div class="grid grid-cols-4 gap-3">
+                        <button onclick="updateBuilder('sauce', 'none')" id="btn-sauce-none" class="builder-opt-btn ring-2 ring-sushi-red bg-sushi-black border border-white/10 p-2.5 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-lg mb-1">🚫</span>
+                            <span class="text-[10px] font-bold text-white">Soussiz</span>
+                        </button>
+                        <button onclick="updateBuilder('sauce', 'spicy')" id="btn-sauce-spicy" class="builder-opt-btn bg-sushi-black hover:bg-white/5 border border-white/10 p-2.5 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-lg mb-1">🌶️</span>
+                            <span class="text-[10px] font-bold text-white">Spicy Mayo</span>
+                            <span class="text-[9px] text-sushi-gold mt-0.5">+2,000 UZS</span>
+                        </button>
+                        <button onclick="updateBuilder('sauce', 'unagi')" id="btn-sauce-unagi" class="builder-opt-btn bg-sushi-black hover:bg-white/5 border border-white/10 p-2.5 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-lg mb-1">🍯</span>
+                            <span class="text-[10px] font-bold text-white">Unagi Shirin</span>
+                            <span class="text-[9px] text-sushi-gold mt-0.5">+2,500 UZS</span>
+                        </button>
+                        <button onclick="updateBuilder('sauce', 'teriyaki')" id="btn-sauce-teriyaki" class="builder-opt-btn bg-sushi-black hover:bg-white/5 border border-white/10 p-2.5 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300">
+                            <span class="text-lg mb-1">🟤</span>
+                            <span class="text-[10px] font-bold text-white">Teriyaki Glaze</span>
+                            <span class="text-[9px] text-sushi-gold mt-0.5">+2,500 UZS</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Side Visualizer & Order Panel (Col 5) -->
+            <div class="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
+                <!-- Visual Box -->
+                <div class="glassmorphism p-6 sm:p-8 rounded-2xl flex flex-col items-center text-center relative overflow-hidden">
+                    <h3 class="text-sm uppercase tracking-widest text-sushi-gold font-bold font-mono mb-4">Jonli Sushi Renderi</h3>
+                    
+                    <!-- Dynamic Graphic Stack Container -->
+                    <div class="relative w-64 h-64 flex items-center justify-center bg-sushi-black/40 rounded-full border border-white/5 shadow-inner">
+                        <!-- Dynamic SVG rendering changes on selection -->
+                        <svg viewBox="0 0 200 200" class="w-48 h-48 drop-shadow-xl" id="sushi-render-svg">
+                            <!-- Outermost wrap -->
+                            <circle id="render-wrap" cx="100" cy="100" r="85" fill="#122A1A" stroke="#FFF" stroke-width="1" />
+                            
+                            <!-- Rice layer -->
+                            <circle id="render-rice" cx="100" cy="100" r="75" fill="#FFF" />
+                            
+                            <!-- Inner Nori divider -->
+                            <circle id="render-inner-nori" cx="100" cy="100" r="48" fill="#1A3322" />
+                            
+                            <!-- Cheese Filling Layer -->
+                            <circle id="render-filling-cheese" cx="100" cy="100" r="38" fill="transparent" />
+                            
+                            <!-- Dynamic Salmon wedge -->
+                            <path id="render-filling-salmon" d="M100,100 L100,65 A35,35 0 0,1 135,100 Z" fill="transparent" />
+                            
+                            <!-- Dynamic Tuna wedge -->
+                            <path id="render-filling-tuna" d="M100,100 L135,100 A35,35 0 0,1 100,135 Z" fill="transparent" />
+
+                            <!-- Dynamic Crab wedge -->
+                            <path id="render-filling-crab" d="M100,100 L100,135 A35,35 0 0,1 65,100 Z" fill="transparent" />
+                            
+                            <!-- Dynamic Avocado wedge -->
+                            <path id="render-filling-avocado" d="M100,100 L65,100 A35,35 0 0,1 100,65 Z" fill="transparent" />
+                            
+                            <!-- Dynamic Mango wedge -->
+                            <circle id="render-filling-mango" cx="90" cy="90" r="10" fill="transparent" />
+
+                            <!-- Dynamic Cucumber wedge -->
+                            <circle id="render-filling-cucumber" cx="110" cy="110" r="10" fill="transparent" />
+
+                            <!-- Dynamic Tobiko points -->
+                            <g id="render-filling-tobiko" fill="transparent">
+                                <circle cx="105" cy="85" r="2.5" />
+                                <circle cx="95" cy="115" r="2.5" />
+                                <circle cx="115" cy="105" r="2.5" />
+                                <circle cx="85" cy="95" r="2.5" />
+                            </g>
+
+                            <!-- Sauce Ring Overlay -->
+                            <circle id="render-sauce" cx="100" cy="100" r="65" fill="none" stroke="transparent" stroke-width="6" stroke-dasharray="10 15" />
+                            
+                            <!-- Center heart / final dot -->
+                            <circle cx="100" cy="100" r="14" fill="#0D0D0C" />
+                            <text x="100" y="104" font-size="12" text-anchor="middle" fill="#FFF">🥢</text>
+                        </svg>
+                    </div>
+
+                    <!-- Builder Bill Details -->
+                    <div class="w-full mt-6 pt-6 border-t border-white/10 space-y-3">
+                        <div class="flex justify-between text-xs text-sushi-light/60">
+                            <span>Baza Roll narxi:</span>
+                            <span>35,000 UZS</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-sushi-light/60">
+                            <span>Qo'shimchalar:</span>
+                            <span id="builder-addons-price">0 UZS</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm font-bold text-white pt-2 border-t border-dashed border-white/10">
+                            <span>Yakuniy Narxi:</span>
+                            <span id="builder-total-price" class="text-sushi-gold text-lg">35,000 UZS</span>
+                        </div>
+                    </div>
+
+                    <!-- Add customized roll to plates button -->
+                    <button onclick="addCustomRollToCart()" class="w-full mt-6 py-4 rounded-xl bg-gradient-to-r from-sushi-gold to-yellow-600 hover:from-yellow-600 hover:to-sushi-gold text-sushi-black font-extrabold tracking-wider transition-all duration-300 shadow-lg shadow-sushi-gold/10 transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-arrow-down"></i> Maxsus Rollni Savatga Qo'shish
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Menu Section -->
+<section id="menu" class="py-24 bg-sushi-black relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header text -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div class="max-w-xl space-y-4">
+                <span class="text-sushi-red text-xs font-bold tracking-widest uppercase font-mono block">// Haqiqiy San'at Menyusi</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Shef Oshpazning Maxsus Menyusi</h2>
+                <p class="text-sushi-light/65 text-sm sm:text-base">
+                    Har bir roll yuqori malakali "Sushichef" tomonidan yapon qoidalariga rioya qilingan holda va eng yangi eksklyuziv baliqlardan tayyorlanadi.
+                </p>
+            </div>
+            
+            <!-- Category Tabs Slider -->
+            <div class="flex space-x-2 overflow-x-auto pb-2 scrollbar-none md:overflow-visible">
+                <button onclick="filterMenu('all')" id="tab-all" class="menu-tab-btn px-5 py-2.5 rounded-full text-xs font-bold bg-sushi-red text-white transition-all duration-300 shadow-md">
+                    Barchasi
+                </button>
+                <button onclick="filterMenu('rolls')" id="tab-rolls" class="menu-tab-btn px-5 py-2.5 rounded-full text-xs font-bold bg-sushi-gray text-sushi-light/60 hover:text-white transition-all duration-300">
+                    Premium Rollar
+                </button>
+                <button onclick="filterMenu('nigiri')" id="tab-nigiri" class="menu-tab-btn px-5 py-2.5 rounded-full text-xs font-bold bg-sushi-gray text-sushi-light/60 hover:text-white transition-all duration-300">
+                    Nigiri & Sashimi
+                </button>
+                <button onclick="filterMenu('sets')" id="tab-sets" class="menu-tab-btn px-5 py-2.5 rounded-full text-xs font-bold bg-sushi-gray text-sushi-light/60 hover:text-white transition-all duration-300">
+                    Premium Setlar
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Dynamic Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="menu-items-grid">
+            <!-- JavaScript will inject cards dynamically here with detailed content -->
+        </div>
+        
+    </div>
+</section>
+
+<!-- Chef Story Section -->
+<section id="about" class="py-24 bg-sushi-dark relative overflow-hidden border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Image Frame -->
+            <div class="lg:col-span-5 relative">
+                <!-- Golden Accent Border behind image -->
+                <div class="absolute -top-4 -left-4 w-full h-full border border-sushi-gold rounded-2xl pointer-events-none opacity-40 z-0"></div>
+                
+                <div class="relative z-10 rounded-2xl overflow-hidden bg-sushi-gray shadow-2xl group border border-white/10">
+                    <!-- Beautiful SVG illustration of Master Chef at work -->
+                    <svg viewBox="0 0 400 500" class="w-full h-auto bg-gradient-to-b from-[#1E1E1C] to-sushi-black">
+                        <!-- Background rising red sun -->
+                        <circle cx="200" cy="220" r="120" fill="#E63946" opacity="0.15" />
+                        <line x1="200" y1="50" x2="200" y2="390" stroke="#FFF" stroke-width="0.5" opacity="0.1" />
+                        <line x1="50" y1="220" x2="350" y2="220" stroke="#FFF" stroke-width="0.5" opacity="0.1" />
+                        
+                        <!-- Chef Silhouette elements -->
+                        <!-- Traditional Japanese Bandana -->
+                        <path d="M 120,120 L 280,120 L 270,140 L 130,140 Z" fill="#FFF" />
+                        <!-- Red sun detail on bandana -->
+                        <circle cx="200" cy="130" r="7" fill="#E63946" />
+                        <path d="M 120,120 Q 100,110 90,120 L 95,130 Z M 280,120 Q 300,110 310,120 L 305,130 Z" fill="#FFF" />
+                        
+                        <!-- Chef head outline -->
+                        <path d="M 140,140 C 140,140 140,210 200,220 C 260,210 260,140 260,140 Z" fill="#FFE0BD" />
+                        <path d="M 140,140 Q 155,150 160,165 Q 165,180 200,180 Q 235,180 240,165 Q 245,150 260,140" fill="#FFE0BD" stroke="#C49B70" stroke-width="2" />
+                        <!-- Eyes looking down focused -->
+                        <path d="M 175,158 Q 185,164 190,158" stroke="#141412" stroke-width="3" fill="none" stroke-linecap="round" />
+                        <path d="M 225,158 Q 215,164 210,158" stroke="#141412" stroke-width="3" fill="none" stroke-linecap="round" />
+                        <path d="M 193,170 L 207,170" stroke="#C49B70" stroke-width="2" />
+                        
+                        <!-- Chef Uniform jacket (Gi) -->
+                        <path d="M 110,320 L 290,320 L 270,220 L 130,220 Z" fill="#FFF" />
+                        <path d="M 130,220 L 200,280 L 270,220" fill="none" stroke="#E63946" stroke-width="3" />
+                        
+                        <!-- Hands sculpting sushi -->
+                        <path d="M 150,320 C 170,300 190,300 200,310 C 210,300 230,300 250,320" fill="#FFE0BD" stroke="#C49B70" stroke-width="2" />
+                        
+                        <!-- Dynamic little glowing sushi hovering inside cooking flame hands -->
+                        <g transform="translate(200, 290) scale(0.6)">
+                            <ellipse cx="0" cy="0" r="30" fill="#E63946" opacity="0.2"/>
+                            <rect x="-25" y="-12" width="50" height="24" rx="10" fill="#FFF" />
+                            <path d="M -28,-14 C -5,-16 5,-14 28,-14 C 31,-5 31,5 28,14 C 5,14 -5,16 -28,14 Z" fill="#FF7F50" />
+                        </g>
+                    </svg>
+                    
+                    <!-- Decorative Floating Label inside Image -->
+                    <div class="absolute bottom-6 left-6 right-6 glassmorphism p-4 rounded-xl">
+                        <p class="text-xs font-bold text-sushi-red uppercase tracking-widest font-mono">Kenji Tanaka</p>
+                        <p class="text-xs text-white/70">Master Sushichef (20 yildan ortiq tajriba)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Column -->
+            <div class="lg:col-span-7 space-y-6">
+                <span class="text-sushi-gold text-xs font-bold tracking-widest uppercase font-mono block">// An'ana va Mukammallik</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Yapon Filosofiyasi: <span class="italic text-sushi-red">Umami</span> Sirlari</h2>
+                <p class="text-sushi-light/75 text-base leading-relaxed">
+                    Yapon tilida <span class="text-sushi-gold font-bold">"Umami"</span> - so'zma-so'z "yoqimli achchiq-shirin yoki yoqimli ta'm" degan ma'noni anglatadi. Biz ushbu beshinchi asosiy ta'mni taomlarimizda mukammallikka yetkazishga intilamiz.
+                </p>
+                <p class="text-sushi-light/70 text-sm leading-relaxed">
+                    Biz har kuni ertalab eng yuqori sifatli baliq va dengiz o'tlarini yetkazib olamiz. Bizning guruchimiz maxsus yapon texnologiyasi asosida qaynatilib, to'g'ri nordonlik va shirinlik darajasini beruvchi premium guruch sirkasi bilan aralashtiriladi.
+                </p>
+                
+                <!-- Signature highlights -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                    <div class="flex items-start space-x-3">
+                        <span class="text-sushi-gold text-lg mt-0.5"><i class="fa-solid fa-gem"></i></span>
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Eksklyuziv Ingredientlar</h4>
+                            <p class="text-xs text-sushi-light/50 mt-1">Haqiqiy yapon Philadelphia pishlog'i va xorijdan keltirilgan yangi baliqlar.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="text-sushi-gold text-lg mt-0.5"><i class="fa-solid fa-hand-holding-heart"></i></span>
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Ehtiyotkorlik bilan tayyorlash</h4>
+                            <p class="text-xs text-sushi-light/50 mt-1">Har bir roll oshpazning nozik mexri va san'atkorona estetikasi bilan yasaladi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Table Booking Section -->
+<section id="booking" class="py-24 bg-sushi-black relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header Text -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <span class="text-sushi-gold text-xs font-bold tracking-widest uppercase font-mono block">// Stol Band Qilish</span>
+            <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Eksklyuziv Joylarni Band Qiling</h2>
+            <p class="text-sushi-light/65 text-sm sm:text-base">
+                O'zingiz uchun mos bo'lgan restorandagi hududni virtual sxema orqali ko'rib chiqing va uning joylashuvini oldindan tanlab buyurtma bering.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- Zone Visualizer (Col 7) -->
+            <div class="lg:col-span-7 space-y-6">
+                <div class="glassmorphism p-6 rounded-2xl">
+                    <h3 class="text-base font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-map-location-dot text-sushi-gold"></i>
+                        <span>Kreativ Restaurant Zone Map (Hududni Tanlang)</span>
+                    </h3>
+                    
+                    <!-- Restaurant Floor Simulation Map Grid -->
+                    <div class="grid grid-cols-3 gap-4" id="zone-cards-container">
+                        <!-- VIP Tatami Room -->
+                        <div onclick="selectZone('vip-tatami', 120000)" id="zone-vip-tatami" class="zone-card cursor-pointer border-2 border-sushi-gold/40 bg-sushi-gold/5 hover:bg-sushi-gold/10 p-5 rounded-xl text-center transition-all duration-300 transform hover:-translate-y-1">
+                            <span class="text-4xl block mb-2">🎌</span>
+                            <span class="text-sm font-bold text-white block">VIP Tatami</span>
+                            <span class="text-[10px] text-sushi-gold block font-semibold mt-1">An'anaviy Yapon Xonasi</span>
+                            <span class="text-xs text-white bg-sushi-gold/20 px-2 py-0.5 rounded mt-2 inline-block">120,000 UZS Depozit</span>
+                        </div>
+                        
+                        <!-- Sushi Bar Counter -->
+                        <div onclick="selectZone('sushi-bar', 0)" id="zone-sushi-bar" class="zone-card cursor-pointer border border-white/10 bg-sushi-black hover:bg-white/5 p-5 rounded-xl text-center transition-all duration-300 transform hover:-translate-y-1">
+                            <span class="text-4xl block mb-2">🍣</span>
+                            <span class="text-sm font-bold text-white block">Sushi Bar</span>
+                            <span class="text-[10px] text-sushi-light/50 block font-semibold mt-1">Shef Oshpaz Ro'parasida</span>
+                            <span class="text-xs text-white bg-emerald-500/20 px-2 py-0.5 rounded mt-2 inline-block">Depozitsiz</span>
+                        </div>
+
+                        <!-- Sakura Garden Room -->
+                        <div onclick="selectZone('sakura-garden', 80000)" id="zone-sakura-garden" class="zone-card cursor-pointer border border-white/10 bg-sushi-black hover:bg-white/5 p-5 rounded-xl text-center transition-all duration-300 transform hover:-translate-y-1">
+                            <span class="text-4xl block mb-2">🌸</span>
+                            <span class="text-sm font-bold text-white block">Sakura Bog'i</span>
+                            <span class="text-[10px] text-sushi-light/50 block font-semibold mt-1">Romantik & Chiroyli Shovqin</span>
+                            <span class="text-xs text-white bg-sushi-gold/20 px-2 py-0.5 rounded mt-2 inline-block">80,000 UZS Depozit</span>
+                        </div>
+                    </div>
+
+                    <!-- Layout Preview Visual representation based on selection -->
+                    <div class="mt-8 p-4 bg-sushi-black/50 border border-white/5 rounded-xl flex items-center justify-between text-xs text-sushi-light/60">
+                        <div class="flex items-center space-x-2">
+                            <span id="zone-indicator-dot" class="w-3 h-3 rounded-full bg-sushi-gold animate-pulse"></span>
+                            <span class="font-medium">Tanlangan Hudud: <strong id="selected-zone-name" class="text-white">VIP Tatami Room</strong></span>
+                        </div>
+                        <div>
+                            <span>Sig'imi: <strong>1-8 kishi</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Input Form Controls (Col 5) -->
+            <div class="lg:col-span-5">
+                <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="glassmorphism p-6 sm:p-8 rounded-2xl space-y-4">
+                    <h3 class="text-lg font-serif font-bold text-white mb-4">Band Qilish Tafsilotlari</h3>
+                    
+                    <!-- Guest Count -->
+                    <div>
+                        <label class="block text-xs font-bold text-sushi-light/60 mb-2 uppercase tracking-wide">Mehmonlar soni</label>
+                        <select required class="w-full bg-sushi-black border border-white/15 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-sushi-red transition-colors">
+                            <option value="2">2 Kishilik Stol</option>
+                            <option value="4">4 Kishilik Stol</option>
+                            <option value="6">6 Kishilik VIP Stol</option>
+                            <option value="8">8+ Kishilik Katta Tatami</option>
+                        </select>
+                    </div>
+
+                    <!-- Date Selection -->
+                    <div>
+                        <label class="block text-xs font-bold text-sushi-light/60 mb-2 uppercase tracking-wide">Sana</label>
+                        <input type="date" required class="w-full bg-sushi-black border border-white/15 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-sushi-red transition-colors">
+                    </div>
+
+                    <!-- Time Selection -->
+                    <div>
+                        <label class="block text-xs font-bold text-sushi-light/60 mb-2 uppercase tracking-wide">Vaqtni Tanlang</label>
+                        <select required class="w-full bg-sushi-black border border-white/15 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-sushi-red transition-colors">
+                            <option value="12:00">12:00 - Tushlik</option>
+                            <option value="14:00">14:00 - Peshshin</option>
+                            <option value="18:00">18:00 - Kechki ovqat</option>
+                            <option value="20:00">20:00 - Oqshom Shou</option>
+                            <option value="22:00">22:00 - Lounge Time</option>
+                        </select>
+                    </div>
+
+                    <!-- Name & Phone -->
+                    <div>
+                        <label class="block text-xs font-bold text-sushi-light/60 mb-2 uppercase tracking-wide font-serif">Sizning ismingiz</label>
+                        <input type="text" placeholder="Masalan: Davron" required class="w-full bg-sushi-black border border-white/15 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-sushi-red transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-sushi-light/60 mb-2 uppercase tracking-wide">Telefon raqamingiz</label>
+                        <input type="tel" placeholder="+998 (90) 123-45-67" required class="w-full bg-sushi-black border border-white/15 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-sushi-red transition-colors">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-sushi-red to-sushi-rose hover:from-sushi-rose hover:to-sushi-red text-white font-extrabold tracking-wider transition-all duration-300 shadow-xl shadow-sushi-red/20 transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-calendar-check"></i> Stolni Band Qilish
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Slide-out Cart Drawer -->
+<div id="cart-drawer" class="fixed inset-y-0 right-0 z-50 w-full sm:w-[450px] bg-sushi-dark shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col border-l border-white/10">
+    <!-- Header -->
+    <div class="p-6 border-b border-white/10 flex items-center justify-between">
+        <h3 class="text-lg font-serif font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-shopping-bag text-sushi-red"></i>
+            <span>Sizning Savatchangiz</span>
+        </h3>
+        <button onclick="toggleCart()" class="text-sushi-light/60 hover:text-white transition-colors" aria-label="Yopish">
+            <i class="fa-solid fa-times text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Items List container (Scrollable) -->
+    <div class="flex-1 overflow-y-auto p-6 space-y-4" id="cart-items-container">
+        <!-- Javascript dynamic inject cart list items here -->
+        <div class="text-center py-20 text-sushi-light/40 space-y-2">
+            <i class="fa-solid fa-box-open text-4xl block mb-2"></i>
+            <p>Hozircha savatchangiz bo'sh.</p>
+            <p class="text-xs">Menyudan ajoyib sushilarni qo'shing!</p>
+        </div>
+    </div>
+
+    <!-- Pricing Summary & simulated Checkout -->
+    <div class="p-6 border-t border-white/10 bg-sushi-black/60 space-y-4">
+        <div class="space-y-2">
+            <div class="flex justify-between text-xs text-sushi-light/60">
+                <span>Mahsulotlar jami:</span>
+                <span id="cart-subtotal">0 UZS</span>
+            </div>
+            <div class="flex justify-between text-xs text-sushi-light/60">
+                <span>Yetkazib berish (Toshkent bo'ylab):</span>
+                <span class="text-sushi-green font-semibold">Bepul</span>
+            </div>
+            <div class="flex justify-between items-center text-base font-bold text-white pt-2 border-t border-dashed border-white/15">
+                <span>Jami Hisob:</span>
+                <span id="cart-total" class="text-sushi-red text-xl font-serif">0 UZS</span>
+            </div>
+        </div>
+
+        <!-- Simulated Purchase Button -->
+        <button onclick="triggerCheckout()" class="w-full py-4 rounded-xl bg-gradient-to-r from-sushi-red to-sushi-rose hover:from-sushi-rose hover:to-sushi-red text-white font-extrabold tracking-wider transition-all duration-300 shadow-xl shadow-sushi-red/30 transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-credit-card"></i> Buyurtmani Rasmiylashtirish
+        </button>
+    </div>
+</div>
+
+<!-- Footers & Social links -->
+<footer class="bg-sushi-black border-t border-white/5 py-12 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            
+            <!-- Col 1 Logo & Info -->
+            <div class="space-y-4">
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-sushi-red to-sushi-rose flex items-center justify-center text-white font-bold text-lg">
+                        お
+                    </div>
+                    <div>
+                        <span class="font-serif text-xl font-bold tracking-wider text-white">Oishii</span>
+                        <span class="text-[10px] block text-sushi-red tracking-widest font-mono font-bold">SUSHI & LOUNGE</span>
+                    </div>
+                </a>
+                <p class="text-xs text-sushi-light/50 leading-relaxed">
+                    Yapon madaniyati va o'zgacha ta'mini Toshkent shahriga eng yuqori darajadagi zamonaviy uslub va an'analarda yetkazib beramiz.
+                </p>
+                <!-- Social links -->
+                <div class="flex space-x-4">
+                    <a href="#" class="w-8 h-8 rounded-full bg-sushi-gray hover:bg-sushi-red hover:text-white flex items-center justify-center text-sushi-light/70 transition-colors duration-300">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-sushi-gray hover:bg-sushi-red hover:text-white flex items-center justify-center text-sushi-light/70 transition-colors duration-300">
+                        <i class="fa-brands fa-telegram"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-sushi-gray hover:bg-sushi-red hover:text-white flex items-center justify-center text-sushi-light/70 transition-colors duration-300">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Col 2 Navigation -->
+            <div>
+                <h4 class="text-white font-bold text-sm mb-4 tracking-wider uppercase">Vebsayt Navigatsiyasi</h4>
+                <ul class="space-y-2.5 text-xs text-sushi-light/60 font-medium">
+                    <li><a href="#hero" class="hover:text-sushi-red transition-colors">Bosh sahifa</a></li>
+                    <li><a href="#builder" class="hover:text-sushi-red transition-colors">DIY Sushi Builder</a></li>
+                    <li><a href="#menu" class="hover:text-sushi-red transition-colors">Bizning Menyu</a></li>
+                    <li><a href="#booking" class="hover:text-sushi-red transition-colors">Stol Band Qilish</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3 Working hours -->
+            <div>
+                <h4 class="text-white font-bold text-sm mb-4 tracking-wider uppercase">Ish Tartibi</h4>
+                <ul class="space-y-2.5 text-xs text-sushi-light/60">
+                    <li class="flex justify-between">
+                        <span>Dushanba - Juma:</span>
+                        <span class="text-white font-bold">11:00 - 23:00</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Shanba - Yakshanba:</span>
+                        <span class="text-white font-bold">12:00 - 01:00</span>
+                    </li>
+                    <li class="pt-2 text-sushi-gold font-bold">
+                        <span>* Oshpaz shousi har juma 20:00 da boshlanadi.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Col 4 Contact Address -->
+            <div>
+                <h4 class="text-white font-bold text-sm mb-4 tracking-wider uppercase">Kontakt va Manzil</h4>
+                <ul class="space-y-3 text-xs text-sushi-light/60">
+                    <li class="flex items-start space-x-2">
+                        <i class="fa-solid fa-location-dot text-sushi-red mt-0.5"></i>
+                        <span>Toshkent sh., Amir Temur ko'chasi, 45-uy (Amir Temur Xiyoboni yaqinida)</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <i class="fa-solid fa-phone text-sushi-red"></i>
+                        <span>+998 (71) 123-45-67</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <i class="fa-solid fa-envelope text-sushi-red"></i>
+                        <span>info@oishiisushi.uz</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Copyright -->
+        <div class="pt-8 border-t border-white/5 text-center text-xs text-sushi-light/40">
+            <p>&copy; 2026 Oishii Sushi & Lounge. Barcha huquqlar himoyalangan. Yaponiya san'ati Toshkentda.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript Interactive Logic -->
+<script>
+    // --- AUDIO SYSTEM (Web Audio API for creative UI sound effects) ---
+    function playUISound(type) {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            const ctx = new AudioContext();
+            
+            if (type === 'click') {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(450, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.12);
+                gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.12);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.12);
+            } else if (type === 'success') {
+                const osc = ctx.createOscillator();
+                const osc2 = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.connect(gain);
+                osc2.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(350, ctx.currentTime);
+                osc.frequency.setValueAtTime(520, ctx.currentTime + 0.08);
+                
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(700, ctx.currentTime);
+                osc2.frequency.setValueAtTime(1040, ctx.currentTime + 0.08);
+                
+                gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3);
+                
+                osc.start();
+                osc2.start();
+                osc.stop(ctx.currentTime + 0.3);
+                osc2.stop(ctx.currentTime + 0.3);
+            }
+        } catch (e) {
+            console.log('Audio Context not allowed or initialized yet.');
+        }
+    }
+
+    // --- APPLICATION STATE (Menu, Cart, Builder & Table bookings) ---
+    const MENU_ITEMS = [
+        { id: 'item1', title: 'Philadelphia Klassik', category: 'rolls', price: 85000, desc: 'Yangi siyom baliq, Philadelphia yumshoq kremli pishlog\'i, avokado va barra bodring.', emoji: '🍣' },
+        { id: 'item2', title: 'Dragon Roll Elegant', category: 'rolls', price: 110000, desc: 'Premium dudlangan ilonbaliq (unagi), maxsus unagi sousi va ustiga oltin kukunli bodring.', emoji: '🐉' },
+        { id: 'item3', title: 'California Tobiko', category: 'rolls', price: 75000, desc: 'Qisqichbaqa go\'shti, mayonez, avokado va sersuv apelsin rangli yapon tobiko uvildirig\'i.', emoji: '🍣' },
+        { id: 'item4', title: 'Sake Nigiri Premium', category: 'nigiri', price: 30000, desc: 'Toshkentga yangi yetkazilgan xom siyom baliq bo\'lagi yapon sholi guruchi ustida.', emoji: '🍣' },
+        { id: 'item5', title: 'Maguro Sashimi Duo', category: 'nigiri', price: 45000, desc: 'Qizil tunyets baliqlarining qalin qilib kesilgan maxsus premium bo\'laklari (3 dona).', emoji: '🥩' },
+        { id: 'item6', title: 'Oishii Premium Set', category: 'sets', price: 280000, desc: 'Philadelphia, California va Dragon rollarining jamlanmasi, katta oila va davralar uchun.', emoji: '🍱' },
+        { id: 'item7', title: 'Ebi Tempura Hot Roll', category: 'rolls', price: 90000, desc: 'Maxsus klyarda qovurilgan panko qumoqli, issiq holda tortiladigan shohona qisqichbaqali roll.', emoji: '🍤' },
+        { id: 'item8', title: 'Tokyo Deluxe Set', category: 'sets', price: 340000, desc: '24 dona eng mazali shef oshpaz uslubidagi premium va klassik sushilar go\'zal jamlanmasi.', emoji: '🍱' },
+    ];
+
+    let cart = [];
+    
+    // --- DIY BUILDER STATE ---
+    let builderState = {
+        wrap: 'nori',
+        rice: 'white',
+        fillings: [], // salmon, tuna, etc.
+        sauce: 'none'
+    };
+
+    const WRAP_NAMES = { nori: 'Nori (Dengiz o\'ti)', soy: 'Soya Qog\'ozi (+3,000 UZS)', cucumber: 'Bodring Wrap (+5,000 UZS)' };
+    const RICE_NAMES = { white: 'Klassik Oq Sholi', black: 'Yovvoyi Qora Guruch (+4,000 UZS)', quinoa: 'Kinoa & Guruch (+6,000 UZS)' };
+    const SAUCE_NAMES = { none: 'Hech qanday', spicy: 'Spicy Mayo (+2,000 UZS)', unagi: 'Unagi Shirin (+2,500 UZS)', teriyaki: 'Teriyaki Glaze (+2,500 UZS)' };
+
+    // --- NAVIGATION LOGIC ---
+    function toggleMobileMenu() {
+        playUISound('click');
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.getElementById('menu-icon');
+        const isOpen = menu.classList.contains('translate-x-0');
+        
+        if (isOpen) {
+            menu.classList.add('translate-x-full');
+            menu.classList.remove('translate-x-0');
+            icon.className = 'fa-solid fa-bars text-2xl';
+        } else {
+            menu.classList.remove('translate-x-full');
+            menu.classList.add('translate-x-0');
+            icon.className = 'fa-solid fa-times text-2xl';
+        }
+    }
+
+    // Parallax scrolling / cursor response for Hero Plate
+    const plate = document.getElementById('parallax-plate');
+    if (window.innerWidth > 1024) {
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.clientX) / 25;
+            const y = (window.innerHeight / 2 - e.clientY) / 25;
+            plate.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
+        });
+    }
+
+    // --- STREAMING_CHUNK: Initializing Menu Rendering and Interactive Filter Actions ---
+    // --- MENU RENDER & FILTER ---
+    function renderMenu(category = 'all') {
+        const grid = document.getElementById('menu-items-grid');
+        grid.innerHTML = '';
+        
+        const filtered = category === 'all' ? MENU_ITEMS : MENU_ITEMS.filter(i => i.category === category);
+        
+        filtered.forEach(item => {
+            const card = document.createElement('div');
+            card.className = "group bg-sushi-dark border border-white/5 rounded-2xl overflow-hidden hover:border-sushi-red/30 transition-all duration-300 transform hover:-translate-y-1.5 flex flex-col justify-between";
+            card.innerHTML = `
+                <div>
+                    <!-- Visual Top Section with overlay -->
+                    <div class="h-44 bg-sushi-gray relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-sushi-dark to-transparent opacity-80 z-10"></div>
+                        <span class="text-7xl group-hover:scale-125 transition-transform duration-500 z-0 relative filter drop-shadow-lg">${item.emoji}</span>
+                        <!-- Floating Category Badge -->
+                        <span class="absolute top-4 right-4 bg-sushi-black/80 text-sushi-gold text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-widest border border-white/5 z-20">
+                            ${item.category}
+                        </span>
+                    </div>
+                    
+                    <!-- Content Info section -->
+                    <div class="p-5 space-y-2">
+                        <h3 class="text-base font-bold text-white group-hover:text-sushi-red transition-colors font-serif">${item.title}</h3>
+                        <p class="text-xs text-sushi-light/50 line-clamp-2 leading-relaxed h-8">${item.desc}</p>
+                    </div>
+                </div>
+
+                <!-- Footer Cart Trigger row -->
+                <div class="p-5 pt-0 flex items-center justify-between border-t border-white/5 mt-2">
+                    <span class="text-sushi-gold font-bold text-sm sm:text-base font-serif">${item.price.toLocaleString('uz-UZ')} UZS</span>
+                    <button onclick="addToCart('${item.id}')" class="p-2.5 rounded-full bg-sushi-gray hover:bg-sushi-red text-sushi-light hover:text-white border border-white/10 transition-all duration-300" aria-label="Savatga qo'shish">
+                        <i class="fa-solid fa-plus text-xs"></i>
+                    </button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function filterMenu(category) {
+        playUISound('click');
+        
+        // Update active class on tabs
+        const buttons = document.querySelectorAll('.menu-tab-btn');
+        buttons.forEach(btn => {
+            btn.className = "menu-tab-btn px-5 py-2.5 rounded-full text-xs font-bold bg-sushi-gray text-sushi-light/60 hover:text-white transition-all duration-300";
+        });
+        
+        const activeBtn = document.getElementById(`tab-${category}`);
+        if (activeBtn) {
+            activeBtn.className = "menu-tab-btn px-5 py-2.5 rounded-full text-xs font-bold bg-sushi-red text-white transition-all duration-300 shadow-md";
+        }
+
+        renderMenu(category);
+    }
+
+    // --- STREAMING_CHUNK: Processing Dynamic Changes inside Custom DIY Sushi Builder ---
+    // --- DIY BUILDER INTERACTION LOGIC ---
+    function updateBuilder(type, value) {
+        playUISound('click');
+        builderState[type] = value;
+        
+        // Update UI Badges
+        if (type === 'wrap') {
+            document.getElementById('selected-wrap-badge').textContent = WRAP_NAMES[value].split(' (')[0];
+            // Toggle highlight ring on wrap selector buttons
+            document.querySelectorAll('[id^="btn-wrap-"]').forEach(el => el.classList.remove('ring-2', 'ring-sushi-red'));
+            document.getElementById(`btn-wrap-${value}`).classList.add('ring-2', 'ring-sushi-red');
+        } else if (type === 'rice') {
+            document.getElementById('selected-rice-badge').textContent = RICE_NAMES[value].split(' (')[0];
+            // Toggle highlight ring on rice selector buttons
+            document.querySelectorAll('[id^="btn-rice-"]').forEach(el => el.classList.remove('ring-2', 'ring-sushi-red'));
+            document.getElementById(`btn-rice-${value}`).classList.add('ring-2', 'ring-sushi-red');
+        } else if (type === 'sauce') {
+            document.getElementById('selected-sauce-badge').textContent = SAUCE_NAMES[value].split(' (')[0];
+            document.querySelectorAll('[id^="btn-sauce-"]').forEach(el => el.classList.remove('ring-2', 'ring-sushi-red'));
+            document.getElementById(`btn-sauce-${value}`).classList.add('ring-2', 'ring-sushi-red');
+        }
+        
+        calculateBuilderPrice();
+    }
+
+    function toggleFilling(filling, price) {
+        playUISound('click');
+        const index = builderState.fillings.findIndex(f => f.name === filling);
+        
+        if (index > -1) {
+            builderState.fillings.splice(index, 1);
+            document.getElementById(`btn-filling-${filling}`).classList.remove('ring-2', 'ring-sushi-gold', 'bg-sushi-gold/5');
+        } else {
+            builderState.fillings.push({ name: filling, price: price });
+            document.getElementById(`btn-filling-${filling}`).classList.add('ring-2', 'ring-sushi-gold', 'bg-sushi-gold/5');
+        }
+        
+        calculateBuilderPrice();
+    }
+
+    function calculateBuilderPrice() {
+        let basePrice = 35000;
+        let addonsPrice = 0;
+        
+        // Wrap addon pricing
+        if (builderState.wrap === 'soy') addonsPrice += 3000;
+        if (builderState.wrap === 'cucumber') addonsPrice += 5000;
+        
+        // Rice addon pricing
+        if (builderState.rice === 'black') addonsPrice += 4000;
+        if (builderState.rice === 'quinoa') addonsPrice += 6000;
+        
+        // Sauce addon pricing
+        if (builderState.sauce === 'spicy') addonsPrice += 2000;
+        if (builderState.sauce === 'unagi' || builderState.sauce === 'teriyaki') addonsPrice += 2500;
+        
+        // Fillings summation
+        builderState.fillings.forEach(f => {
+            addonsPrice += f.price;
+        });
+
+        const total = basePrice + addonsPrice;
+        
+        // Update price display labels
+        document.getElementById('builder-addons-price').textContent = `${addonsPrice.toLocaleString('uz-UZ')} UZS`;
+        document.getElementById('builder-total-price').textContent = `${total.toLocaleString('uz-UZ')} UZS`;
+        
+        // Update SVG Visual elements dynamically
+        updateBuilderSVGVisuals();
+    }
+
+    // Live update of SVG colors inside builder rendering box
+    function updateBuilderSVGVisuals() {
+        // Outer Wrap color
+        const renderWrap = document.getElementById('render-wrap');
+        if (builderState.wrap === 'nori') renderWrap.setAttribute('fill', '#122A1A');
+        else if (builderState.wrap === 'soy') renderWrap.setAttribute('fill', '#E6C15C');
+        else if (builderState.wrap === 'cucumber') renderWrap.setAttribute('fill', '#3A7D44');
+
+        // Rice color
+        const renderRice = document.getElementById('render-rice');
+        if (builderState.rice === 'white') renderRice.setAttribute('fill', '#FFFFFF');
+        else if (builderState.rice === 'black') renderRice.setAttribute('fill', '#2D2D30');
+        else if (builderState.rice === 'quinoa') renderRice.setAttribute('fill', '#E5E0D8');
+
+        // Filling color logic (Wedges update to simulate visual stack)
+        const fillingNames = builderState.fillings.map(f => f.name);
+        
+        document.getElementById('render-filling-cheese').setAttribute('fill', fillingNames.includes('cheese') ? '#FFFDF0' : 'transparent');
+        document.getElementById('render-filling-salmon').setAttribute('fill', fillingNames.includes('salmon') ? '#FF7F50' : 'transparent');
+        document.getElementById('render-filling-tuna').setAttribute('fill', fillingNames.includes('tuna') ? '#E63946' : 'transparent');
+        document.getElementById('render-filling-crab').setAttribute('fill', fillingNames.includes('crab') ? '#FF9494' : 'transparent');
+        document.getElementById('render-filling-avocado').setAttribute('fill', fillingNames.includes('avocado') ? '#7EB359' : 'transparent');
+        document.getElementById('render-filling-mango').setAttribute('fill', fillingNames.includes('mango') ? '#FFA33A' : 'transparent');
+        document.getElementById('render-filling-cucumber').setAttribute('fill', fillingNames.includes('cucumber_f') ? '#B6E388' : 'transparent');
+        document.getElementById('render-filling-tobiko').setAttribute('fill', fillingNames.includes('tobiko') ? '#FF4F00' : 'transparent');
+
+        // Sauce overlay
+        const renderSauce = document.getElementById('render-sauce');
+        if (builderState.sauce === 'none') renderSauce.setAttribute('stroke', 'transparent');
+        else if (builderState.sauce === 'spicy') renderSauce.setAttribute('stroke', '#FF7A00');
+        else if (builderState.sauce === 'unagi') renderSauce.setAttribute('stroke', '#4D2400');
+        else if (builderState.sauce === 'teriyaki') renderSauce.setAttribute('stroke', '#331B11');
+    }
+
+    function addCustomRollToCart() {
+        playUISound('success');
+        
+        let customNameParts = [];
+        if (builderState.fillings.length === 0) customNameParts.push("Klassik");
+        else {
+            builderState.fillings.forEach(f => {
+                if (f.name === 'salmon') customNameParts.push("Siyomli");
+                if (f.name === 'tuna') customNameParts.push("Tunyetsli");
+                if (f.name === 'crab') customNameParts.push("Qisqichbaqali");
+                if (f.name === 'avocado') customNameParts.push("Avokadoli");
+            });
+        }
+        customNameParts.push("DIY Roll");
+
+        const finalName = customNameParts.join(" ");
+        const basePrice = 35000;
+        let addonsPrice = 0;
+        
+        if (builderState.wrap === 'soy') addonsPrice += 3000;
+        if (builderState.wrap === 'cucumber') addonsPrice += 5000;
+        if (builderState.rice === 'black') addonsPrice += 4000;
+        if (builderState.rice === 'quinoa') addonsPrice += 6000;
+        if (builderState.sauce === 'spicy') addonsPrice += 2000;
+        if (builderState.sauce === 'unagi' || builderState.sauce === 'teriyaki') addonsPrice += 2500;
+        builderState.fillings.forEach(f => addonsPrice += f.price);
+
+        const totalPrice = basePrice + addonsPrice;
+
+        const customItemObj = {
+            id: 'diy-' + Date.now(),
+            title: finalName,
+            price: totalPrice,
+            emoji: '🥢',
+            desc: `G'ilof: ${WRAP_NAMES[builderState.wrap].split(' (')[0]}, Guruch: ${RICE_NAMES[builderState.rice].split(' (')[0]}.`
+        };
+
+        cart.push({ item: customItemObj, qty: 1 });
+        updateCartBadgeAndContainer();
+        showToast(`Siz yaratgan "${finalName}" savatga muvaffaqiyatli qo'shildi!`);
+    }
+
+    // --- STREAMING_CHUNK: Processing Shopping Basket interactions, state changes and notifications ---
+    // --- CART SYSTEM LOGIC ---
+    function toggleCart() {
+        playUISound('click');
+        const drawer = document.getElementById('cart-drawer');
+        const isOpen = drawer.classList.contains('translate-x-0');
+        
+        if (isOpen) {
+            drawer.classList.remove('translate-x-0');
+            drawer.classList.add('translate-x-full');
+        } else {
+            drawer.classList.add('translate-x-0');
+            drawer.classList.remove('translate-x-full');
+        }
+    }
+
+    function addToCart(itemId) {
+        playUISound('success');
+        const item = MENU_ITEMS.find(i => i.id === itemId);
+        if (!item) return;
+
+        const existing = cart.find(c => c.item.id === itemId);
+        if (existing) {
+            existing.qty += 1;
+        } else {
+            cart.push({ item: item, qty: 1 });
+        }
+
+        updateCartBadgeAndContainer();
+        showToast(`"${item.title}" savatga qo'shildi!`);
+    }
+
+    function updateCartBadgeAndContainer() {
+        const countBadge = document.getElementById('cart-count');
+        const totalItems = cart.reduce((acc, current) => acc + current.qty, 0);
+        countBadge.textContent = totalItems;
+
+        // Container Elements
+        const container = document.getElementById('cart-items-container');
+        container.innerHTML = '';
+
+        if (cart.length === 0) {
+            container.innerHTML = `
+                <div class="text-center py-20 text-sushi-light/40 space-y-2">
+                    <i class="fa-solid fa-box-open text-4xl block mb-2"></i>
+                    <p>Hozircha savatchangiz bo'sh.</p>
+                    <p class="text-xs">Menyudan ajoyib sushilarni qo'shing!</p>
+                </div>
+            `;
+            document.getElementById('cart-subtotal').textContent = "0 UZS";
+            document.getElementById('cart-total').textContent = "0 UZS";
+            return;
+        }
+
+        let totalSum = 0;
+
+        cart.forEach((cItem, idx) => {
+            const itemSum = cItem.item.price * cItem.qty;
+            totalSum += itemSum;
+
+            const itemNode = document.createElement('div');
+            itemNode.className = "flex items-center justify-between bg-sushi-gray/40 border border-white/5 p-4 rounded-xl space-x-3";
+            itemNode.innerHTML = `
+                <span class="text-3xl">${cItem.item.emoji}</span>
+                <div class="flex-1 min-w-0">
+                    <h4 class="text-xs sm:text-sm font-bold text-white truncate font-serif">${cItem.item.title}</h4>
+                    <p class="text-[10px] text-sushi-light/50 truncate">${cItem.item.desc || ''}</p>
+                    <span class="text-xs text-sushi-gold font-bold font-mono">${cItem.item.price.toLocaleString('uz-UZ')} UZS</span>
+                </div>
+                <!-- Qty Control actions -->
+                <div class="flex items-center space-x-2">
+                    <button onclick="changeQty(${idx}, -1)" class="w-6 h-6 rounded bg-sushi-gray flex items-center justify-center text-xs text-sushi-light hover:bg-sushi-red hover:text-white transition-all">-</button>
+                    <span class="text-xs font-bold font-mono text-white">${cItem.qty}</span>
+                    <button onclick="changeQty(${idx}, 1)" class="w-6 h-6 rounded bg-sushi-gray flex items-center justify-center text-xs text-sushi-light hover:bg-sushi-red hover:text-white transition-all">+</button>
+                </div>
+            `;
+            container.appendChild(itemNode);
+        });
+
+        document.getElementById('cart-subtotal').textContent = `${totalSum.toLocaleString('uz-UZ')} UZS`;
+        document.getElementById('cart-total').textContent = `${totalSum.toLocaleString('uz-UZ')} UZS`;
+    }
+
+    function changeQty(index, amt) {
+        playUISound('click');
+        cart[index].qty += amt;
+        if (cart[index].qty <= 0) {
+            cart.splice(index, 1);
+        }
+        updateCartBadgeAndContainer();
+    }
+
+    function triggerCheckout() {
+        if (cart.length === 0) {
+            showToast("Buyurtma berish uchun avval savatchaga sushi qo'shing!");
+            return;
+        }
+        playUISound('success');
+        showToast("Muvaffaqiyatli! Buyurtmangiz qabul qilindi, 15 daqiqada yetib boradi!");
+        cart = [];
+        updateCartBadgeAndContainer();
+        toggleCart();
+    }
+
+    // --- STREAMING_CHUNK: Setting Table Selection parameters and Form checkout logic ---
+    // --- TABLE BOOKING LOGIC ---
+    let selectedZone = 'vip-tatami';
+    const ZONE_DISPLAY_NAMES = {
+        'vip-tatami': 'VIP Tatami Room',
+        'sushi-bar': 'Sushi Bar Counter',
+        'sakura-garden': 'Sakura Garden Room'
+    };
+
+    function selectZone(zoneId, deposit) {
+        playUISound('click');
+        selectedZone = zoneId;
+        
+        // Render Active card border highlight
+        document.querySelectorAll('.zone-card').forEach(el => {
+            el.className = "zone-card cursor-pointer border border-white/10 bg-sushi-black hover:bg-white/5 p-5 rounded-xl text-center transition-all duration-300 transform hover:-translate-y-1";
+        });
+
+        const activeCard = document.getElementById(`zone-${zoneId}`);
+        if (activeCard) {
+            activeCard.className = "zone-card cursor-pointer border-2 border-sushi-gold bg-sushi-gold/5 p-5 rounded-xl text-center transition-all duration-300 transform hover:-translate-y-1";
+        }
+
+        // Update detail indicator labels
+        document.getElementById('selected-zone-name').textContent = ZONE_DISPLAY_NAMES[zoneId];
+        
+        const dot = document.getElementById('zone-indicator-dot');
+        if (zoneId === 'sushi-bar') {
+            dot.className = "w-3 h-3 rounded-full bg-emerald-400 animate-pulse";
+        } else {
+            dot.className = "w-3 h-3 rounded-full bg-sushi-gold animate-pulse";
+        }
+    }
+
+    function handleBookingSubmit(event) {
+        event.preventDefault();
+        playUISound('success');
+        showToast(`Stol muvaffaqiyatli band qilindi! Hudud: ${ZONE_DISPLAY_NAMES[selectedZone]}`);
+        document.getElementById('booking-form').reset();
+    }
+
+    // --- STREAMING_CHUNK: Toast and initialization systems ---
+    // --- TOAST NOTIFICATIONS ---
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toast-message').textContent = message;
+        
+        toast.classList.remove('opacity-0', 'translate-y-20', 'pointer-events-none');
+        toast.classList.add('opacity-100', 'translate-y-0');
+
+        setTimeout(() => {
+            toast.classList.add('opacity-0', 'translate-y-20', 'pointer-events-none');
+            toast.classList.remove('opacity-100', 'translate-y-0');
+        }, 4000);
+    }
+
+    // On-load initializations
+    window.onload = function() {
+        renderMenu('all');
+        calculateBuilderPrice();
+        // Update styling of the header during scrolling
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('py-1', 'shadow-xl', 'bg-sushi-black/90');
+                header.classList.remove('bg-transparent');
+            } else {
+                header.classList.remove('py-1', 'shadow-xl', 'bg-sushi-black/90');
+            }
+        });
+    }
+</script>
+</body>
+</html>
